@@ -177,4 +177,51 @@ class Producto
 		return $consulta->fetchAll(PDO::FETCH_CLASS,"producto");		
 	}
 
+/// JSON 
+	public static function Guardar($prod, $mode)
+    {
+        $retorno = false;
+
+        $archivo = fopen("C:/xampp/htdocs/Noguera/ejercicio25/producto.json", $mode);
+
+        if($archivo != false)
+        {
+            if(fwrite($archivo, json_encode($prod->Producto_toArray()) . "\n") != false)
+            {
+                $retorno = true;
+            }
+
+            fclose($archivo);
+        }
+
+        return $retorno;
+    }
+
+    public static function Leer()
+    {
+        $retorno = false;
+        $vec = array();
+
+        $archivo = fopen("C:/xampp/htdocs/Noguera/ejercicio25/producto.json", "r");
+
+        if($archivo != false)
+        {
+            while(!feof($archivo))
+            {
+                $lectura = fgets($archivo);
+                $auxVec = json_decode($lectura, true);
+
+                if($auxVec != null)
+                {
+                    $prod = new Producto($auxVec["codigoBarra"], $auxVec["nombre"], $auxVec["tipo"], $auxVec["stock"], $auxVec["precio"], $auxVec["id"]);
+
+                    array_push($vec, $prod);
+                }
+            }
+        }
+
+        return $vec;
+    }
+
+
 }

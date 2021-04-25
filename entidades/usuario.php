@@ -120,4 +120,28 @@ class Usuario
 		return $consulta->fetchAll(PDO::FETCH_OBJ);		
 	}
 
+	// guardar EN  CSV 
+	/*
+	public function Guardar(){
+
+		$retorno = false;
+
+		$archivo = fopen("usuarios.csv", "a");
+
+		if($archivo != false){
+
+			$escritura = fwrite($archivo, $this->GetDatos() . "\n");
+
+			if($escritura != false){
+				$retorno = true;
+			}
+
+			fclose($archivo);
+
+		}
+
+		return $retorno;
+	}
+*/
+
 }
